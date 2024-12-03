@@ -6,4 +6,6 @@ class Client():
         self.estadoCliente = estadoCliente
         self.cnpjCliente = cnpjCliente
 
-    
+    @property
+    def informacoes(self):
+        print(f'Cliente: {self.codCliente} - {self.nomeCliente.ljust(25)}, Cidade/Estado: {self.cidadeCliente.ljust(20)}/{self.estadoCliente}')

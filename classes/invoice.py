@@ -8,3 +8,7 @@ class Invoice():
 
     def payDebt(self):
         self.debtoPago = True
+
+    @property
+    def informacoes(self):
+        print(f"Nota {self.numeroNota}, Emitida em {self.dataEmissao}")
