@@ -1,9 +1,9 @@
 class Client():
-    def __init__(self, clientCode, clientName, clientCity, clientState, clientCNPJ):
-        self.clientCode = clientCode
-        self.clientName = clientName
-        self.clientCity = clientCity
-        self.clientState = clientState
-        self.clientCNPJ = clientCNPJ
+    def __init__(self, codCliente, nomeCliente, cidadeCliente, estadoCliente, cnpjCliente):
+        self.codCliente = codCliente
+        self.nomeCliente = nomeCliente
+        self.cidadeCliente = cidadeCliente
+        self.estadoCliente = estadoCliente
+        self.cnpjCliente = cnpjCliente
 
     
