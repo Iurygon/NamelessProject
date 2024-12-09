@@ -11,19 +11,23 @@ def menuPrincipal():
                         "2 - Cadastro de Produto\n"
                         "3 - Notas Fiscais\n"
                         "4 - Sair do Sistema")
-    return acessoMenu
+    match acessoMenu:
+        case 1: menuClientes()
+        case 2: menuProdutos()
+        case 3: notasFiscais()
+        case 4: sairPrograma()
 
-def menuClientes(opcaoAcesso):
+def menuClientes():
     pass
 
-def menuProdutos(opcaoAcesso):
+def menuProdutos():
     pass
 
-def notasFiscais(opcaoAcesso):
+def notasFiscais():
     pass
 
-def sairPrograma(opcaoAcesso):
-    pass
-
+def sairPrograma():
+    os.system("cls")
+    print("Fechando o programa!")
 
 menuPrincipal()
