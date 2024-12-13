@@ -8,4 +8,4 @@ class Client():
 
     @property
     def informacoes(self):
-        print(f'Cliente: {self.codCliente} - {self.nomeCliente.ljust(25)}, Cidade/Estado: {self.cidadeCliente.ljust(20)}/{self.estadoCliente}')
+        return f'Cliente: {self.codCliente} - {self.nomeCliente.ljust(25)}, Cidade/Estado: {self.cidadeCliente.ljust(20)}/{self.estadoCliente}'
