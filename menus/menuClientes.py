@@ -23,12 +23,13 @@ def menuClientes():
 #CADASTRAR CLIENTE
 def cadastrarCliente():
     print("Digite os dados do cliente a serem cadastrados:")
+    # codigo  = PRECISA BUSCAR O ÚLTIMO CÓDIGO CADASTRADO NA BASE DE DADOS
     nome    = input("Nome: ")
     cidade  = input("Cidade: ")
     estado  = input("Estado: ")
     cnpj    = input("CNPJ: ")
-    cliente = Client("000001",nome, cidade, estado, cnpj)
-    print(cliente.informacoes)
+    # cliente = Client("000001",nome, cidade, estado, cnpj)
+    
 
 #ALTERAR CADASTRO DE CLIENTE
 def atualizarCadCliente():
