@@ -1,4 +1,8 @@
+import connection as sql
+import os
+
 def menuProdutos():
+    os.system("cls")
     print("Menu de produtos!\n Selecione qual opção deseja seguir:\n"
           "1 - Cadastrar novo produto\n"
           "2 - Atualizar cadastro de produto\n"

@@ -1,3 +1,4 @@
+import connection as sql
 import os
 
 def menuNotas():
