@@ -11,6 +11,10 @@ def menuPrincipal():
             "3 - Notas Fiscais\n"
             "4 - Sair do Sistema\n")
     acessoMenu = input("Qual função deseja acessar: ")
+    if acessoMenu not in ("1","2","3","4"):
+        print("O valor digitado deve estar entre as opções acima.")
+        input("Pressione Enter para prosseguir.")
+        menuPrincipal()
     match acessoMenu:
         case "1": menuClientes()
         case "2": menuProdutos()

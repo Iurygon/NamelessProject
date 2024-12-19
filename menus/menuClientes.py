@@ -12,7 +12,7 @@ def menuClientes():
     opMenuCli = input("Digite qual opção deseja seguir: ")
     if opMenuCli not in ["1","2","3","4"]:
         print("O valor digitado deve estar entre as opções acima.")
-        input("Pressione Enter tecla para continuar")
+        input("Pressione Enter para continuar")
         menuClientes()
     match opMenuCli:
         case "1": cadastrarCliente()
@@ -22,14 +22,24 @@ def menuClientes():
 
 #CADASTRAR CLIENTE
 def cadastrarCliente():
+    os.system("cls")
     print("Digite os dados do cliente a serem cadastrados:")
-    # codigo  = PRECISA BUSCAR O ÚLTIMO CÓDIGO CADASTRADO NA BASE DE DADOS
+    consultaCodigo = sql.cursor.execute("SELECT MAX(CLIENTES.CODIGO) FROM CLIENTES (NOLOCK)").fetchone()
+    if consultaCodigo[0] is None:
+        codigo = 1
+    else:
+        codigo = consultaCodigo[0] + 1
     nome    = input("Nome: ")
     cidade  = input("Cidade: ")
     estado  = input("Estado: ")
     cnpj    = input("CNPJ: ")
-    # cliente = Client("000001",nome, cidade, estado, cnpj)
-    
+    cliente = Client(codigo, nome, cidade, estado, cnpj)
+    try:
+        sql.cursor.execute(f"INSERT INTO CLIENTES VALUES ({codigo},'{nome}','{cidade}','{estado}','{cnpj}')")
+        sql.connection.commit()
+    except:
+        sql.connection.rollback()
+        print("Falha na gravação dos dados! Revise os valores digitados e, caso o erro persista, entre em contato com o administrador ")
 
 #ALTERAR CADASTRO DE CLIENTE
 def atualizarCadCliente():
