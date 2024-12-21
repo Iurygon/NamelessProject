@@ -37,16 +37,21 @@ def cadastrarCliente():
     try:
         sql.cursor.execute(f"INSERT INTO CLIENTES VALUES ({codigo},'{nome}','{cidade}','{estado}','{cnpj}')")
         sql.connection.commit()
+        print("Cliente cadastrado com sucesso!")
     except:
         sql.connection.rollback()
         print("Falha na gravação dos dados! Revise os valores digitados e, caso o erro persista, entre em contato com o administrador ")
+    menuClientes()
 
 #ALTERAR CADASTRO DE CLIENTE
 def atualizarCadCliente():
+    # CARREGAR OS CLIENTES CADASTRADOS NA BASE DE DADOS
+    # CRIAR UMA INSTANCIA PARA CADA CLIENTE E APRESENTAR OS DADOS
     pass
 
 #CONSULTAR CLIENTE
 def consultarCliente():
+
     pass
 
 #EXCLUIR CLIENTE
