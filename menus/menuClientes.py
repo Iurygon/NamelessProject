@@ -57,8 +57,16 @@ def atualizarCadCliente(dadosClientes):
 
 #CONSULTAR CLIENTE
 def consultarCliente(dadosClientes):
-
-    pass
+    os.system("cls")
+    print(f"Existem {0 if len(dadosClientes) == 0 else dadosClientes[0][0]} cliente(s) cadastrados no sistema. Seguem dados:")
+    print(dadosClientes)
+    for cliente, dados in dadosClientes:
+        print(cliente)
+    #     print(dados)
+        # objCliente = Client(dados[0], dados[1], dados[2], dados[3], dados[4])
+        # print(objCliente.informacoes)
+    input("Pressione Enter para seguir.")
+    menuClientes()
 
 #EXCLUIR CLIENTE
 def excluirCLiente(dadosClientes):
