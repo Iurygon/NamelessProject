@@ -58,13 +58,22 @@ def atualizarCadCliente(dadosClientes):
 #CONSULTAR CLIENTE
 def consultarCliente(dadosClientes):
     os.system("cls")
-    print(f"Existem {0 if len(dadosClientes) == 0 else dadosClientes[0][0]} cliente(s) cadastrados no sistema. Seguem dados:")
-    print(dadosClientes)
-    for cliente, dados in dadosClientes:
-        print(cliente)
-    #     print(dados)
-        # objCliente = Client(dados[0], dados[1], dados[2], dados[3], dados[4])
-        # print(objCliente.informacoes)
+    print(f"Existem {0 if len(dadosClientes) == 0 else dadosClientes[0][0]} cliente(s) cadastrados no sistema.")
+    visualizaTodos = input("Deseja visualizar todos? [1] Sim [2] Pesquisar por código\n")
+    if visualizaTodos not in ["1","2"]:
+        print("O valor digitado deve estar entre uma das opções informadas solicitadas!")
+        time.sleep(3)
+        menuClientes()
+    else:
+        if visualizaTodos == "1":
+            for clienteInfo in dadosClientes:
+                objCliente = Client(clienteInfo[1], clienteInfo[2], clienteInfo[3], clienteInfo[4], clienteInfo[5])
+                print(objCliente.informacoes)
+        else:
+            codigoPesquisado = input("Qual código deseja pesquisar? ")
+            clienteInfo = sql.cursor.execute(f"SELECT * FROM CLIENTES (NOLOCK) WHERE CODIGO = {codigoPesquisado}").fetchone()
+            objCliente = Client(clienteInfo[0], clienteInfo[1], clienteInfo[2], clienteInfo[3], clienteInfo[4])
+            print(objCliente.informacoes)
     input("Pressione Enter para seguir.")
     menuClientes()
 
