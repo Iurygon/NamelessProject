@@ -79,4 +79,9 @@ def consultarCliente(dadosClientes):
 
 #EXCLUIR CLIENTE
 def excluirCLiente(dadosClientes):
-    pass
+    os.system("cls")
+    codCliente = input("Insira o código do cliente a ser excluído: ")
+    listaCodCliente = []
+    for clienteInfo in dadosClientes:
+        listaCodCliente.append(clienteInfo[1])
+    
