@@ -80,8 +80,23 @@ def consultarCliente(dadosClientes):
 #EXCLUIR CLIENTE
 def excluirCLiente(dadosClientes):
     os.system("cls")
-    codCliente = input("Insira o código do cliente a ser excluído: ")
+    codCliente = int(input("Insira o código do cliente a ser excluído: "))
     listaCodCliente = []
     for clienteInfo in dadosClientes:
         listaCodCliente.append(clienteInfo[1])
-    
+    if codCliente not in listaCodCliente:
+        print("O código digitado não está presente na base de dados. Favor, insira um código válido.")
+        input("Pressione Enter para prosseguir")
+        menuClientes()
+    else:
+        clienteInfo = sql.cursor.execute(f"SELECT * FROM CLIENTES (NOLOCK) WHERE CODIGO = {codCliente}").fetchone()
+        objCliente = Client(clienteInfo[0], clienteInfo[1], clienteInfo[2], clienteInfo[3], clienteInfo[4])
+        try:
+            sql.cursor.execute(f"DELETE FROM CLIENTES WHERE CODIGO = {codCliente}")
+            sql.connection.commit()
+            print("O seguinte cliente foi excluído:")
+            print(objCliente.informacoes)
+        except:
+            sql.connection.rollback()
+    input("Pressione Enter para continuar")
+    menuClientes()
