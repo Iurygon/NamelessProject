@@ -51,9 +51,20 @@ def cadastrarCliente(dadosClientes):
 
 #ALTERAR CADASTRO DE CLIENTE
 def atualizarCadCliente(dadosClientes):
-    # CARREGAR OS CLIENTES CADASTRADOS NA BASE DE DADOS
-    # CRIAR UMA INSTANCIA PARA CADA CLIENTE E APRESENTAR OS DADOS
-    pass
+    os.system("cls")
+    codCliente = int(input("Insira o código do cliente a ser alterado: "))
+    listaCodCliente = []
+    for clienteInfo in dadosClientes:
+        listaCodCliente.append(clienteInfo[1])
+    if codCliente not in listaCodCliente:
+        print("O código digitado não está presente na base de dados. Favor, insira um código válido.")
+        input("Pressione Enter para prosseguir")
+        menuClientes()
+    else:
+        clienteInfo = sql.cursor.execute(f"SELECT * FROM CLIENTES (NOLOCK) WHERE CODIGO = {codCliente}").fetchone()
+        objCliente = Client(clienteInfo[0], clienteInfo[1], clienteInfo[2], clienteInfo[3], clienteInfo[4])
+        print("O cliente informado está com os seguintes dados:")
+        print(objCliente.informacoes)
 
 #CONSULTAR CLIENTE
 def consultarCliente(dadosClientes):
