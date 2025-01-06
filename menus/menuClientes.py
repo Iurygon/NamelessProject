@@ -65,6 +65,21 @@ def atualizarCadCliente(dadosClientes):
         objCliente = Client(clienteInfo[0], clienteInfo[1], clienteInfo[2], clienteInfo[3], clienteInfo[4])
         print("O cliente informado está com os seguintes dados:")
         print(objCliente.informacoes)
+        print("Digite as novas informações:")
+        nome    = input("Nome: ")
+        cidade  = input("Cidade: ")
+        estado  = input("Estado: ")
+        cnpj    = input("CNPJ: ")
+        try:
+            sql.cursor.execute(f"UPDATE CLIENTES SET NOME='{nome}',CIDADE='{cidade}',ESTADO='{estado}',CNPJ='{cnpj}' WHERE CODIGO = {codCliente}")
+            sql.connection.commit()
+            print("Dados alterados com sucesso!")
+            time.sleep(5)
+        except:
+            sql.connection.rollback()
+            print("Falha na gravação dos dados! Revise os valores digitados e, caso o erro persista, entre em contato com o administrador ")
+            time.sleep(5)
+        menuClientes()
 
 #CONSULTAR CLIENTE
 def consultarCliente(dadosClientes):
