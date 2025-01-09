@@ -56,17 +56,23 @@ def consultarProduto(dadosProdutos):
 #EXCLUIR UM PRODUTO
 def excluirProduto(dadosProdutos):
     os.system("cls")
-    codProduto = input("Digite o código do produto a ser excluído: ")
+    codProduto = int(input("Digite o código do produto a ser excluído: "))
     listaCodigos = []
     for produto in dadosProdutos:
         listaCodigos.append(produto[1])
     if codProduto not in listaCodigos:    
         print("O produto digitado não está presente no sistema!")
-        time.sleep(5)
     else:
+        produto = sql.cursor.execute(f"SELECT * FROM PRODUTOS (NOLOCK) WHERE CODIGO = {codProduto}").fetchone()
+        objProduto = Product(produto[0], produto[1], produto[2])
         try:
             sql.cursor.execute(f"DELETE FROM PRODUTOS WHERE CODIGO = {codProduto}")
+            print("O seguinte produto será removido:")
+            print(objProduto.informacoes)
             sql.connection.commit()
-            print("Produto removido!")
+            print("Produto removido com sucesso!")
         except:
             sql.cursor.rollback()
+            print("Falha na remoção do produto! Verifique o valor digitado e, caso o problema persista, entre em contato com o administrador.")
+    input("Pressione Enter para continuar")
+    menuProdutos()
