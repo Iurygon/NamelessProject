@@ -6,4 +6,4 @@ class Product():
     
     @property
     def informacoes(self):
-        print(f"Produto: {self.codProduto} - {self.nomeProduto.ljust(25)}, Valor: R${self.precoProduto}")
+        return f"Produto: {self.codProduto} - {self.nomeProduto.ljust(25)}, Valor: R${self.precoProduto}"
