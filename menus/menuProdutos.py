@@ -51,7 +51,25 @@ def atualizarCadProduto(dadosProdutos):
 
 #CONSULTAR UM PRODUTO
 def consultarProduto(dadosProdutos):
-    pass
+    os.system("cls")
+    codProduto = input("Insira o código do produto que deseja visualizar [0 para ver todos]: ")
+    print("Seguem dados:")
+    if codProduto == "0":
+        for produto in dadosProdutos:
+            objProduto = Product(produto[1], produto[2], produto[3])
+            print(objProduto.informacoes)
+    else:
+        listaCodProdutos = []
+        for produto in dadosProdutos:
+            listaCodProdutos.append(str(produto[1]))
+        if codProduto not in listaCodProdutos:
+            print("O valor digitado não está presente na base de dados!")
+        else:
+            buscaProduto = sql.cursor.execute(f"SELECT * FROM PRODUTOS (NOLOCK) WHERE CODIGO = {codProduto}").fetchone()
+            objProduto = Product(buscaProduto[0],buscaProduto[1],buscaProduto[2])
+            print(objProduto.informacoes)
+    input("Pressione Enter para seguir\n")
+    menuProdutos()
 
 #EXCLUIR UM PRODUTO
 def excluirProduto(dadosProdutos):
