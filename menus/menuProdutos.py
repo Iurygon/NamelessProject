@@ -47,17 +47,28 @@ def cadastrarProduto(dadosProdutos):
 
 #ATUALIZAR CADASTRO DE UM PRODUTO
 def atualizarCadProduto(dadosProdutos):
-    codProduto = int(input("Insira o código do produto a ser atualizado:\n"))
+    codProduto = input("Insira o código do produto a ser atualizado:\n")
     listaCodProdutos = []
     for produto in dadosProdutos:
-        listaCodProdutos.append(produto[1])
+        listaCodProdutos.append(str(produto[1]))
     if codProduto not in listaCodProdutos:
         print("O valor digitado não está presente na base de dados!")
     else:
         infProduto = sql.cursor.execute(f"SELECT * FROM PRODUTOS (NOLOCK) WHERE CODIGO = {codProduto}").fetchone()
         objProduto = Product(infProduto[0], infProduto[1], infProduto[2])
-        
         print("Revise os dados do produto selecionado:")
+        print(objProduto.informacoes)
+        nome = input("Nome: ")
+        valor = input("Preço: ")
+        try:
+            sql.cursor.execute(f"UPDATE PRODUTOS SET NOME = '{nome}', PRECO = '{valor}' WHERE CODIGO = {codProduto}")
+            sql.connection.commit()
+            print("Valores alterados com sucesso!")
+        except:
+            sql.connection.rollback()
+            print("Falha na alteração dos dados! Revise os valores digitados e, caso o erro persista, entre em contato com o administrador.")
+        input("Digite Enter para continuar")
+        menuProdutos()
 
     input("Digite Enter para continuar\n")
     menuProdutos()
