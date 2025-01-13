@@ -47,7 +47,21 @@ def cadastrarProduto(dadosProdutos):
 
 #ATUALIZAR CADASTRO DE UM PRODUTO
 def atualizarCadProduto(dadosProdutos):
-    pass
+    codProduto = int(input("Insira o código do produto a ser atualizado:\n"))
+    listaCodProdutos = []
+    for produto in dadosProdutos:
+        listaCodProdutos.append(produto[1])
+    if codProduto not in listaCodProdutos:
+        print("O valor digitado não está presente na base de dados!")
+    else:
+        infProduto = sql.cursor.execute(f"SELECT * FROM PRODUTOS (NOLOCK) WHERE CODIGO = {codProduto}").fetchone()
+        objProduto = Product(infProduto[0], infProduto[1], infProduto[2])
+        
+        print("Revise os dados do produto selecionado:")
+
+    input("Digite Enter para continuar\n")
+    menuProdutos()
+
 
 #CONSULTAR UM PRODUTO
 def consultarProduto(dadosProdutos):
