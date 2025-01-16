@@ -1,9 +1,14 @@
 import connection as sql
 import os
 from classes.invoice import Invoice
+from classes.client import Client
+from classes.product import Product
 
 def menuNotas():
     os.system("cls")
+    dadosProdutos = sql.cursor.execute("SELECT * FROM PRODUTOS (NOLOCK)").fetchall()
+    dadosClientes = sql.cursor.execute("SELECT * FROM CLIENTES (NOLOCK)").fetchall()
+    dadosNotas = sql.cursor.execute("SELECT * FROM NOTASFISCAIS (NOLOCK)").fetchall()
     print("Menu de notas!\n Selecione qual opção deseja seguir:\n"
           "1 - Lançar notas\n"
           "2 - Pagar notas em aberto\n"
@@ -16,23 +21,23 @@ def menuNotas():
         menuNotas()
     else:
         match  opMenuNotas:
-            case "1": lancarNotas()
-            case "2": pagarNotas()
-            case "3": consultarNotas()
-            case "4": excluirNotas()
+            case "1": lancarNotas(dadosClientes, dadosProdutos, dadosNotas)
+            case "2": pagarNotas(dadosClientes, dadosProdutos, dadosNotas)
+            case "3": consultarNotas(dadosClientes, dadosProdutos, dadosNotas)
+            case "4": excluirNotas(dadosClientes, dadosProdutos, dadosNotas)
 
 #LANÇAR NOTAS
-def lancarNotas():
+def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
     pass
 
 #PAGAR NOTAS EM ABERTO
-def pagarNotas():
+def pagarNotas(dadosClientes, dadosProdutos, dadosNotas):
     pass
 
 #CONSULTAR NOTAS
-def consultarNotas():
+def consultarNotas(dadosClientes, dadosProdutos, dadosNotas):
     pass
 
 #EXCLUIR NOTAS
-def excluirNotas():
+def excluirNotas(dadosClientes, dadosProdutos, dadosNotas):
     pass
