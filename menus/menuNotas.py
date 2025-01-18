@@ -28,7 +28,17 @@ def menuNotas():
 
 #LANÇAR NOTAS
 def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
-    pass
+    os.system("cls")
+    print("Digite os dados para preencher a nota:")
+    for clienteInfo in dadosClientes:
+        objCliente = Client(clienteInfo[0],clienteInfo[1],clienteInfo[2],clienteInfo[3],clienteInfo[4])
+        print(objCliente.informacoes)
+    cliente = input("Digite o código do cliente: ")
+    os.system("cls")
+    for produtoInfo in dadosProdutos:
+        objProduto = Product(produtoInfo[0],produtoInfo[1],produtoInfo[2])
+        print(objProduto.informacoes)
+    produto = input("Digite o código do produto:")
 
 #PAGAR NOTAS EM ABERTO
 def pagarNotas(dadosClientes, dadosProdutos, dadosNotas):
