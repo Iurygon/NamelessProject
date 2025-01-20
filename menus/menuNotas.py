@@ -45,8 +45,11 @@ def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
         print(objProduto.informacoes)
     while insereProduto != 1:
         produto = input("Digite o código do produto e quantidade, separados por vírgula. Ex: 3,2:\n")
-        #DIVIDIR CÓDIGO E QUANTIDADE DO PRODUTO E INSERIR NO DICIONÁRIO
+        '''!!!DIVIDIR CÓDIGO E QUANTIDADE DO PRODUTO E INSERIR NO DICIONÁRIO!!!'''
         insereProduto = int(input("Deseja inserir um novo produto? 0 para Sim; 1 para Não\n"))
+    #ENVIAR DADOS DA NOTA
+    '''CÓDIGO PARA FAZER O ENVIO DOS DADOS DA NOTA'''
+    menuNotas()
 
 #PAGAR NOTAS EM ABERTO
 def pagarNotas(dadosClientes, dadosProdutos, dadosNotas):
