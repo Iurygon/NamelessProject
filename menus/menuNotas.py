@@ -36,22 +36,22 @@ def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
         print(objCliente.informacoes)
     cliente = input("Digite o código do cliente:\n")
     #PREENCHER DADOS DOS PRODUTOS
-    os.system("cls")
-    print("Digite os dados para preencher a nota:")
     dictInfoProdutos = {}
     insereProduto = 0
+    os.system("cls")
+    print("Digite os dados para preencher a nota:")
     for produtoInfo in dadosProdutos:
         objProduto = Product(produtoInfo[0],produtoInfo[1],produtoInfo[2])
         print(objProduto.informacoes)
-    while insereProduto != 1:
+    while insereProduto != "1":
         codProduto = int(input("Digite o código do produto:\n"))
         quantProduto = int(input("Digite a quantidade do produto:\n"))
-        dictInfoProdutos.update(codProduto,quantProduto)
-        '''!!!DIVIDIR CÓDIGO E QUANTIDADE DO PRODUTO E INSERIR NO DICIONÁRIO!!!'''
-        insereProduto = int(input("Deseja inserir um novo produto? 0 para Sim; 1 para Não\n"))
+        dictInfoProdutos.update({codProduto: quantProduto})
+        insereProduto = input("Deseja inserir um novo produto? 0 para Sim; 1 para Não\n")
     #ENVIAR DADOS DA NOTA
     '''CÓDIGO PARA FAZER O ENVIO DOS DADOS DA NOTA'''
     print(dictInfoProdutos)
+    print(len(dictInfoProdutos))
     input("Pressione Enter para continuar")
     menuNotas()
 
