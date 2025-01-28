@@ -30,6 +30,9 @@ def menuNotas():
 def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
     os.system("cls")
     print("Digite os dados para preencher a nota:")
+    #BUSCAR NUMERO DA NOTA
+    numNotaFiscal = sql.cursor.execute("SELECT COUNT(*) FROM NOTASFISCAIS (NOLOCK)").fetchone()
+    numNotaFiscal = numNotaFiscal[0] + 1
     #PREENCHER DADOS DO CLIENTE
     for clienteInfo in dadosClientes:
         objCliente = Client(clienteInfo[0],clienteInfo[1],clienteInfo[2],clienteInfo[3],clienteInfo[4])
@@ -49,9 +52,12 @@ def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
         dictInfoProdutos.update({codProduto: quantProduto})
         insereProduto = input("Deseja inserir um novo produto? 0 para Sim; 1 para Não\n")
     #ENVIAR DADOS DA NOTA
-    '''CÓDIGO PARA FAZER O ENVIO DOS DADOS DA NOTA'''
-    print(dictInfoProdutos)
-    print(len(dictInfoProdutos))
+    try:
+        for produto in dictInfoProdutos:
+            print(f"Cliente: {cliente}, Produto: {produto}, Quantidade: {dictInfoProdutos[produto]}")
+            sql.cursor.execute(f"INSERT INTO NOTASFISCAIS VALUES ('{str(numNotaFiscal).zfill(9)}', GETDATE(),{produto},{dictInfoProdutos[produto]},{cliente},0)")
+    except:
+        print("Falha na gravação dos dados! Revise os valores e, caso o erro persistir, entre em contato com o administrador.")
     input("Pressione Enter para continuar")
     menuNotas()
 
