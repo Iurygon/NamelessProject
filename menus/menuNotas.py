@@ -68,12 +68,16 @@ def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
 
 #PAGAR NOTAS EM ABERTO
 def pagarNotas(dadosClientes, dadosProdutos, dadosNotas):
+    #ALTERAR O ESTADO DA NOTA DE EM ABERTO PARA FECHADO#
+    #CRIAR UMA FORMA DE VERIFICAR AS NOTAS EM ABERTO PENDENTES PARA AQUELE CLIENTE, VENDO UM SOMATÓRIO TOTAL E POSSIBILITANDO QUITAR MAIS DE UMA NOTA#
     pass
 
 #CONSULTAR NOTAS
 def consultarNotas(dadosClientes, dadosProdutos, dadosNotas):
+    #CRIAR UM OBJETO INVOICE E REALIAR A CONSULTA SOBRE ELE#
     pass
 
 #EXCLUIR NOTAS
 def excluirNotas(dadosClientes, dadosProdutos, dadosNotas):
+    #DELETAR UMA NOTA DA BASE DE DADOS#
     pass
