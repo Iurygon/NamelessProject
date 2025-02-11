@@ -79,5 +79,7 @@ def consultarNotas(dadosClientes, dadosProdutos, dadosNotas):
 
 #EXCLUIR NOTAS
 def excluirNotas(dadosClientes, dadosProdutos, dadosNotas):
+    numeroNota = input("Digite o número da nota a ser excluída:\n")
+    consultaNota = sql.cursor.execute(f"SELECT * FROM NOTASFISCAIS (NOLOCK) WHERE NUMERO = {numeroNota}").fetchall()
+    print(consultaNota)
     #DELETAR UMA NOTA DA BASE DE DADOS#
-    pass
