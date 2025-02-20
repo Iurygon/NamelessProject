@@ -8,7 +8,7 @@ def menuNotas():
     os.system("cls")
     dadosProdutos = sql.cursor.execute("SELECT * FROM PRODUTOS (NOLOCK)").fetchall()
     dadosClientes = sql.cursor.execute("SELECT * FROM CLIENTES (NOLOCK)").fetchall()
-    dadosNotas = sql.cursor.execute("SELECT * FROM NOTASFISCAIS (NOLOCK)").fetchall()
+    dadosNotas = sql.cursor.execute("SELECT * FROM CONSDADOSNOTAS (NOLOCK)").fetchall()
     print("Menu de notas!\n Selecione qual opção deseja seguir:\n"
           "1 - Lançar notas\n"
           "2 - Pagar notas em aberto\n"
@@ -80,6 +80,33 @@ def consultarNotas(dadosClientes, dadosProdutos, dadosNotas):
 #EXCLUIR NOTAS
 def excluirNotas(dadosClientes, dadosProdutos, dadosNotas):
     numeroNota = input("Digite o número da nota a ser excluída:\n")
-    consultaNota = sql.cursor.execute(f"SELECT * FROM NOTASFISCAIS (NOLOCK) WHERE NUMERO = {numeroNota}").fetchall()
-    print(consultaNota)
-    #DELETAR UMA NOTA DA BASE DE DADOS#
+    query("notas",numeroNota)
+    listaNumNota = []
+    for nota in dadosNotas:
+        listaNumNota.append(nota[0])
+    if numeroNota not in listaNumNota:
+        print("O número da nota digitada não existe no banco de dados. Favor, tente novamente.")
+    else:
+        try:
+            sql.cursor.execute(f"DELETE FROM NOTASFISCAIS WHERE NUMERO = '{numeroNota}'")
+            sql.connection.commit()
+            print('Nota excluída com sucesso!')
+        except:
+            print("Falha na exclusão da nota. Se o erro persistir, entre em contato com o administrador!")
+    input("Pressione Enter para continuar")
+    menuNotas()
+
+#REALIZA A CONSULTA NA BASE DE DADOS
+def query(colunaFiltro, valorBuscado):
+    queryGeral = "SELECT * FROM CONSDADOSNOTAS (NOLOCK) "
+    queryComplemento = ""
+    match colunaFiltro:
+        case "cliente": queryComplemento = f"WHERE CODCLIENTE = {valorBuscado}"
+        case "produto": queryComplemento = f"WHERE CODPRODUTO = {valorBuscado}"
+        case "notas": queryComplemento = f"WHERE NUMERO = '{valorBuscado}'"
+        case "abertas": queryComplemento = f"WHERE SITPAGTO = '{valorBuscado}'"
+    if colunaFiltro != "geral":
+        queryGeral = queryGeral + queryComplemento
+    resultado = sql.cursor.execute(queryGeral).fetchall()
+    for nota in resultado:
+        print(f"Nota: {nota[0]}| Emissão: {nota[1]}|CodCliente: {str(nota[2]).ljust(3)}| NomeCliente: {nota[3].ljust(20)}| CodProduto: {str(nota[4]).ljust(3)}| Produto: {nota[5].ljust(20)}| Quant: {nota[6]}| VlrUnitario: R${round(nota[7],2)}| VlrTotal: R${round(nota[8],2)}| Situação: {nota[9]}")
