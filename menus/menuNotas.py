@@ -27,7 +27,7 @@ def menuNotas():
             case "4": excluirNotas(dadosClientes, dadosProdutos, dadosNotas)
 
 #LANÇAR NOTAS
-def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
+def lancarNotas(dadosClientes, dadosProdutos):
     os.system("cls")
     print("Digite os dados para preencher a nota:")
     #BUSCAR NUMERO DA NOTA
@@ -68,17 +68,43 @@ def lancarNotas(dadosClientes, dadosProdutos, dadosNotas):
 
 #PAGAR NOTAS EM ABERTO
 def pagarNotas(dadosClientes, dadosProdutos, dadosNotas):
-    #ALTERAR O ESTADO DA NOTA DE EM ABERTO PARA FECHADO#
-    #CRIAR UMA FORMA DE VERIFICAR AS NOTAS EM ABERTO PENDENTES PARA AQUELE CLIENTE, VENDO UM SOMATÓRIO TOTAL E POSSIBILITANDO QUITAR MAIS DE UMA NOTA#
-    pass
+    dadosNotas = query("situacao","0")
+    valorConsulta = input("Informe o número da nota a ser paga:\n")
+    listaNotas = []
+    for nota in dadosNotas:
+        listaNotas.append(nota[0])
+    if valorConsulta not in listaNotas:
+        print("O valor digitado não existe na base de dados! Favor, tente novamente.")
+    else:
+        try:
+            sql.cursor.execute(f"UPDATE NOTASFISCAIS SET DEBTOPAGO = 1 WHERE NUMERO = '{valorConsulta}'")
+            sql.connection.commit()
+            print("Nota declarada como paga!")
+        except:
+            sql.connection.rollback()
+            print("Não foi possível executar o processo. Tente novamente e, caso o erro persistir, entre em contato com o administrador!")
+    input("Pressione Enter para continuar.")
+    menuNotas()
 
 #CONSULTAR NOTAS
-def consultarNotas(dadosClientes, dadosProdutos, dadosNotas):
-    #CRIAR UM OBJETO INVOICE E REALIAR A CONSULTA SOBRE ELE#
-    pass
+def consultarNotas():
+    tipoConsulta = input("Deseja realizar a busca de que forma?\n1-Numero da nota\n2-Cliente\n3-Notas abertas")
+    if tipoConsulta not in ["1","2","3"]:
+        print("A opção digitada não é válida! Favor, tentar novamente.")
+        menuNotas
+    else:
+        match tipoConsulta:
+            case "1": valorConsulta = input("Digite o número da nota\n")
+            case "2": valorConsulta = input("Digite o código do cliente\n")
+        match tipoConsulta:
+            case "1": query("notas",valorConsulta)
+            case "2": query("cliente",valorConsulta)
+            case "3": query("situacao","0")
+    input("Pressione Enter para continuar")
+    menuNotas()
 
 #EXCLUIR NOTAS
-def excluirNotas(dadosClientes, dadosProdutos, dadosNotas):
+def excluirNotas(dadosNotas):
     numeroNota = input("Digite o número da nota a ser excluída:\n")
     query("notas",numeroNota)
     listaNumNota = []
@@ -104,7 +130,7 @@ def query(colunaFiltro, valorBuscado):
         case "cliente": queryComplemento = f"WHERE CODCLIENTE = {valorBuscado}"
         case "produto": queryComplemento = f"WHERE CODPRODUTO = {valorBuscado}"
         case "notas": queryComplemento = f"WHERE NUMERO = '{valorBuscado}'"
-        case "abertas": queryComplemento = f"WHERE SITPAGTO = '{valorBuscado}'"
+        case "situacao": queryComplemento = f"WHERE DEBTOPAGO = '{valorBuscado}'"
     if colunaFiltro != "geral":
         queryGeral = queryGeral + queryComplemento
     resultado = sql.cursor.execute(queryGeral).fetchall()
